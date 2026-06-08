@@ -4,16 +4,10 @@ class VideojuegoAhorcado:
 
     def __init__(self):
 
-        self.palabras = [
-            "futbol",
-            "ronaldo",
-            "gato",
-            "mundial",
-            "fifa",
-            "computadora"
-        ]
+        with open("palabras.txt","r")as archivo:
+            self.palabras = archivo.read().splitlines()
 
-        self.palabra = random.choice(self.palabras)
+        self.__palabra = random.choice(self.palabras)
 
         self.letras_adivinadas = []
 
@@ -21,7 +15,7 @@ class VideojuegoAhorcado:
 
     def mostrar_palabra(self):
 
-        for letra in self.palabra:
+        for letra in self.__palabra:
 
             if letra in self.letras_adivinadas:
                 print(letra, end=" ")
@@ -31,18 +25,9 @@ class VideojuegoAhorcado:
 
         print()
 
-    def pedir_letra(self):
-
-        letra = input("Ingresa una letra: ").lower()
-    
-        if letra not in self.letras_adivinadas:
-            self.letras_adivinadas.append(letra)
-        else:
-            print("Ya ingresaste esa letra")
-
     def verificar_ganador(self):
 
-        for letra in self.palabra:
+        for letra in self.__palabra:
 
             if letra not in self.letras_adivinadas:
                 return False
@@ -55,7 +40,7 @@ class VideojuegoAhorcado:
         if letra not in self.letras_adivinadas:
             self.letras_adivinadas.append(letra)
             
-            if letra not in self.palabra:
+            if letra not in self.__palabra:
                 self.intentos -= 1
                 print("Letra incorrecta")
                 print("Intentos resrantes:",self.intentos)
@@ -82,7 +67,7 @@ while True:
     if juego.verificar_perdedor():
 
         print("Bot!")
-        print("La palabra era:", juego.palabra)
+        print("La palabra era:", juego._VideojuegoAhorcado__palabra)
         break
 
 
