@@ -35,17 +35,24 @@ class VideojuegoAhorcado:
 
     def pedir_letra(self):
 
-        letra=input("Ingresa una letra:").lower()
-        
-        if letra not in self.letras_adivinadas:
-            self.letras_adivinadas.append(letra)
-            
-            if letra not in self.__palabra:
-                self.intentos -= 1
-                print("Letra incorrecta")
-                print("Intentos resrantes:",self.intentos)
-        else:
-            print("Ya ingresaste esa letra")
+        try:
+            letra = input("Ingresa una letra: ").lower()
+
+            if len(letra) !=1:
+                raise ValueError
+            if letra not in self.letras_adivinadas:
+                self.letras_adivinadas.append(letra)
+
+                if letra not in self.__palabra:
+                    self.intentos -= 1
+
+                    print ("letra incorrecta")
+                    print("Intentos restantes:", self.intentos)
+            else:
+                    print("Ya ingresaste esa letra")
+
+        except ValueError:
+            print("Error: Debes ingresar solo una letra. ")
 
     def verificar_perdedor(self):
         return self.intentos <=0
@@ -61,7 +68,7 @@ while True:
     if juego.verificar_ganador():
 
         print("Bn hecho!")
-        print("La palabra era:", juego.palabra)
+        print("La palabra era:", juego._VideojuegoAhorcado__palabra)
         break
 
     if juego.verificar_perdedor():
